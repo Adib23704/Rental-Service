@@ -37,7 +37,7 @@
 									<div class="div">*</div>
 								</div>
 							</div>
-							<input class="fileds" type="number" />
+							<input class="fileds" type="number" required />
 						</div>
 						<div class="field-parent">
 							<div class="field1">
@@ -50,7 +50,7 @@
 									</div>
 								</div>
 								<div class="wrapper-fileds">
-									<input class="fileds1" placeholder="Select Date and Time" type="date" />
+									<input class="fileds1" placeholder="Select Date and Time" type="date" required />
 								</div>
 							</div>
 							<div class="field2">
@@ -63,7 +63,7 @@
 									</div>
 								</div>
 								<div class="wrapper-fileds1">
-									<input class="fileds2" placeholder="Select Date and Time" type="date" />
+									<input class="fileds2" placeholder="Select Date and Time" type="date" required />
 								</div>
 							</div>
 							<div class="field3">
@@ -75,7 +75,7 @@
 										<div class="div3">*</div>
 									</div>
 								</div>
-								<select class="fileds3" required="{true}">
+								<select class="fileds3" required>
 									<option value="1day">1 day</option>
 								</select>
 							</div>
@@ -106,8 +106,13 @@
 									<div class="div5">*</div>
 								</div>
 							</div>
-							<select class="fileds5" required="{true}">
-								<option value="car">car</option>
+							<select class="fileds5" id="vehicleType" required>
+								<option value="" disabled selected>Select Vehicle Type</option>
+								<% types.forEach(type=> { %>
+									<option value="<%= type.type %>">
+										<%= type.type %>
+									</option>
+									<% }); %>
 							</select>
 						</div>
 					</div>
@@ -120,8 +125,7 @@
 								<div class="div6">*</div>
 							</div>
 						</div>
-						<select class="fileds6">
-							<option value="toyota">toyota</option>
+						<select class="fileds6" id="vehicleName" required disabled>
 						</select>
 					</div>
 				</div>
@@ -148,7 +152,7 @@
 											<div class="div7">*</div>
 										</div>
 									</div>
-									<input class="fileds7" type="text" />
+									<input class="fileds7" type="text" required />
 								</div>
 								<div class="field8">
 									<div class="title8">
@@ -159,7 +163,7 @@
 											<div class="div8">*</div>
 										</div>
 									</div>
-									<input class="fileds8" type="text" />
+									<input class="fileds8" type="text" required />
 								</div>
 								<div class="field9">
 									<div class="title9">
@@ -170,7 +174,7 @@
 											<div class="div9">*</div>
 										</div>
 									</div>
-									<input class="fileds9" type="email" />
+									<input class="fileds9" type="email" required />
 								</div>
 								<div class="field10">
 									<div class="title10">
@@ -181,7 +185,7 @@
 											<div class="div10">*</div>
 										</div>
 									</div>
-									<input class="fileds10" type="tel" />
+									<input class="fileds10" type="tel" required />
 								</div>
 							</div>
 						</div>
@@ -303,6 +307,7 @@
 			</div>
 		</main>
 	</div>
+	<script src="./script.js"></script>
 </body>
 
 </html>
