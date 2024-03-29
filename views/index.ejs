@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="initial-scale=1, width=device-width" />
+	<title>Rental Reservation</title>
+	<link rel="stylesheet" href="./styles.css" />
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" />
+</head>
+
+<body>
+	<div class="task-1">
+		<div class="child-field-title">
+			<div class="child-fields">
+				<h2 class="reservation">Reservation</h2>
+			</div>
+			<div class="child-field-title-inner" id="frameContainer">
+				<button class="print-download-wrapper">
+					<div class="print-download">Print / Download</div>
+				</button>
+			</div>
+		</div>
+		<main class="frame-parent">
+			<div class="frame-group">
+				<div class="reservation-details-wrapper">
+					<div class="reservation-details">Reservation Details</div>
+				</div>
+				<div class="date-parent">
+					<div class="date">
+						<div class="field">
+							<div class="title">
+								<div class="text">
+									<div class="text1">Reservation ID</div>
+								</div>
+								<div class="asterisk">
+									<div class="div">*</div>
+								</div>
+							</div>
+							<input class="fileds" type="number" />
+						</div>
+						<div class="field-parent">
+							<div class="field1">
+								<div class="title1">
+									<div class="text2">
+										<div class="text3">Pickup Date</div>
+									</div>
+									<div class="asterisk1">
+										<div class="div1">*</div>
+									</div>
+								</div>
+								<div class="wrapper-fileds">
+									<input class="fileds1" placeholder="Select Date and Time" type="date" />
+								</div>
+							</div>
+							<div class="field2">
+								<div class="title2">
+									<div class="text4">
+										<div class="text5">Return Date</div>
+									</div>
+									<div class="asterisk2">
+										<div class="div2">*</div>
+									</div>
+								</div>
+								<div class="wrapper-fileds1">
+									<input class="fileds2" placeholder="Select Date and Time" type="date" />
+								</div>
+							</div>
+							<div class="field3">
+								<div class="title3">
+									<div class="text6">
+										<div class="text7">Duration</div>
+									</div>
+									<div class="asterisk3">
+										<div class="div3">*</div>
+									</div>
+								</div>
+								<select class="fileds3" required="{true}">
+									<option value="1day">1 day</option>
+								</select>
+							</div>
+						</div>
+						<div class="field-wrapper">
+							<div class="field4">
+								<div class="title4">
+									<div class="text8">
+										<div class="text9">Discount</div>
+									</div>
+								</div>
+								<input class="fileds4" type="number" />
+							</div>
+						</div>
+					</div>
+					<div class="vehicle-information-wrapper">
+						<div class="vehicle-information">Vehicle Information</div>
+					</div>
+				</div>
+				<div class="vehicle-info">
+					<div class="field-container">
+						<div class="field5">
+							<div class="title5">
+								<div class="text10">
+									<div class="text11">Vehicle Type</div>
+								</div>
+								<div class="asterisk5">
+									<div class="div5">*</div>
+								</div>
+							</div>
+							<select class="fileds5" required="{true}">
+								<option value="car">car</option>
+							</select>
+						</div>
+					</div>
+					<div class="field6">
+						<div class="title6">
+							<div class="text12">
+								<div class="text13">Vehicle</div>
+							</div>
+							<div class="asterisk6">
+								<div class="div6">*</div>
+							</div>
+						</div>
+						<select class="fileds6">
+							<option value="toyota">toyota</option>
+						</select>
+					</div>
+				</div>
+			</div>
+			<div class="frame-container">
+				<div class="customer-inf-charges-parent">
+					<div class="customer-inf-charges">
+						<div class="customer-information-wrapper">
+							<div class="customer-information">Customer Information</div>
+						</div>
+						<div class="charges-summary-wrapper">
+							<div class="charges-summary">Charges Summary</div>
+						</div>
+					</div>
+					<div class="info-form-sec">
+						<div class="infoform">
+							<div class="field-title">
+								<div class="field7">
+									<div class="title7">
+										<div class="text14">
+											<div class="text15">First Name</div>
+										</div>
+										<div class="asterisk7">
+											<div class="div7">*</div>
+										</div>
+									</div>
+									<input class="fileds7" type="text" />
+								</div>
+								<div class="field8">
+									<div class="title8">
+										<div class="text16">
+											<div class="asterisk-symbol">Last Name</div>
+										</div>
+										<div class="asterisk8">
+											<div class="div8">*</div>
+										</div>
+									</div>
+									<input class="fileds8" type="email" />
+								</div>
+								<div class="field9">
+									<div class="title9">
+										<div class="text17">
+											<div class="text18">Email</div>
+										</div>
+										<div class="asterisk9">
+											<div class="div9">*</div>
+										</div>
+									</div>
+									<input class="fileds9" type="text" />
+								</div>
+								<div class="field10">
+									<div class="title10">
+										<div class="text19">
+											<div class="text20">Phone</div>
+										</div>
+										<div class="asterisk10">
+											<div class="div10">*</div>
+										</div>
+									</div>
+									<input class="fileds10" type="tel" />
+								</div>
+							</div>
+						</div>
+						<div class="info-form-sec-inner">
+							<div class="frame-div">
+								<div class="charge-types-parent">
+									<div class="charge-types">
+										<div class="charge">Charge</div>
+									</div>
+									<div class="frame-parent1">
+										<div class="unit-wrapper">
+											<div class="unit">Unit</div>
+										</div>
+										<div class="rate-wrapper">
+											<div class="rate">Rate</div>
+										</div>
+										<div class="additional-charges-sec">
+											<div class="total">Total</div>
+										</div>
+									</div>
+								</div>
+								<div class="frame-parent2">
+									<div class="daily-wrapper">
+										<div class="daily">Daily</div>
+									</div>
+									<div class="frame-parent3">
+										<div class="wrapper">
+											<div class="div11">1</div>
+										</div>
+										<div class="container">
+											<div class="div12">$99.00</div>
+										</div>
+										<div class="frame">
+											<div class="div13">$99.00</div>
+										</div>
+									</div>
+								</div>
+								<div class="frame-parent4">
+									<div class="weekly-wrapper">
+										<div class="weekly">Weekly</div>
+									</div>
+									<div class="frame-parent5">
+										<div class="wrapper1">
+											<div class="div14">1</div>
+										</div>
+										<div class="wrapper2">
+											<div class="div15">$390.00</div>
+										</div>
+										<div class="wrapper3">
+											<div class="div16">$390.00</div>
+										</div>
+									</div>
+								</div>
+								<div class="collision-damage-waiver-parent">
+									<div class="collision-damage-waiver">
+										Collision Damage Waiver
+									</div>
+									<div class="parent">
+										<div class="div17">$9.00</div>
+										<div class="div18">$9.00</div>
+									</div>
+								</div>
+								<div class="frame-parent6">
+									<div class="total-wrapper">
+										<div class="total1">Total</div>
+									</div>
+									<div class="frame-wrapper">
+										<div class="wrapper4">
+											<div class="div19">$498.00</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="frame-parent7">
+					<div class="additional-charges-wrapper">
+						<div class="additional-charges">Additional Charges</div>
+					</div>
+					<div class="frame-parent8">
+						<div class="instance-parent">
+							<div class="frame-parent9">
+								<input class="frame-input" type="checkbox" />
+
+								<div class="option-name">Collision Damage Waiver</div>
+							</div>
+							<div class="frame-parent10">
+								<div class="rectangle-wrapper">
+									<div class="frame-child"></div>
+								</div>
+								<div class="option-name1">$9.00</div>
+							</div>
+						</div>
+						<div class="instance-group">
+							<div class="frame-parent11">
+								<input class="frame-input1" type="checkbox" />
+
+								<div class="option-name2">Liability Insurance</div>
+							</div>
+							<div class="rectangle-parent">
+								<div class="instance-child"></div>
+								<div class="option-name3">$15.00</div>
+							</div>
+						</div>
+						<div class="instance-container">
+							<div class="frame-parent12">
+								<input class="frame-input2" type="checkbox" />
+
+								<div class="option-name4">Rental Tax</div>
+							</div>
+							<div class="rectangle-group">
+								<div class="instance-item"></div>
+								<div class="option-name5">11.5%</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</main>
+	</div>
+
+	<script>
+		var frameContainer = document.getElementById("frameContainer");
+		if (frameContainer) {
+			frameContainer.addEventListener("click", function (e) {
+				// Please sync "Sample Invoice" to the project
+			});
+		}
+	</script>
+</body>
+
+</html>
