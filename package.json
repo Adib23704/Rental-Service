@@ -33,5 +33,11 @@
     "nodemon": "^3.1.0",
     "prettier": "^3.2.5"
   },
-  "type": "module"
+  "type": "module",
+  "prettier": {
+    "useTabs": true,
+    "tabWidth": 4,
+    "bracketSpacing": true,
+    "singleQuote": true
+  }
 }
