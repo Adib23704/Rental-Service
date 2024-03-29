@@ -204,7 +204,7 @@ body {
 	flex-direction: row;
 	align-items: center;
 	justify-content: flex-start;
-	padding: var(--padding-3xs-5) var(--padding-186xl) var(--padding-3xs-5) var(--padding-5xs);
+	padding: var(--padding-xs);
 	font-family: var(--font-poppins);
 	font-weight: 600;
 	font-size: var(--font-size-sm);
@@ -263,11 +263,11 @@ body {
 	padding: var(--padding-10xs) var(--padding-xs);
 	font-family: var(--font-poppins);
 	font-size: var(--font-size-sm);
-	color: var(--color-slategray);
 	border: 0;
 	width: 100%;
 	height: 100%;
 	background: 0 0;
+	font-weight: 600;
 }
 
 .field1,
@@ -340,11 +340,11 @@ body {
 	padding: var(--padding-10xs) var(--padding-xs);
 	font-family: var(--font-poppins);
 	font-size: var(--font-size-sm);
-	color: var(--color-slategray);
 	border: 0;
 	width: 100%;
 	height: 100%;
 	background: 0 0;
+	font-weight: 600;
 }
 
 .calendar-icon1 {
@@ -448,8 +448,8 @@ body {
 	padding: var(--padding-5xs) var(--padding-xs);
 	font-family: var(--font-poppins);
 	font-size: var(--font-size-sm);
-	color: var(--color-slategray);
 	min-width: 131px;
+	font-weight: 600;
 }
 
 .field-parent,
@@ -528,8 +528,8 @@ body {
 	padding: var(--padding-xs);
 	font-family: var(--font-poppins);
 	font-size: var(--font-size-sm);
-	color: var(--color-slategray);
 	min-width: 183px;
+	font-weight: 600;
 }
 
 .date,
@@ -645,7 +645,7 @@ body {
 	padding: var(--padding-xs);
 	font-family: var(--font-poppins);
 	font-size: var(--font-size-sm);
-	color: var(--color-slategray);
+	font-weight: 600;
 }
 
 .field-container,
@@ -719,7 +719,7 @@ body {
 	padding: var(--padding-5xs) var(--padding-xs);
 	font-family: var(--font-poppins);
 	font-size: var(--font-size-sm);
-	color: var(--color-slategray);
+	font-weight: 600;
 }
 
 .field6,
@@ -858,10 +858,9 @@ body {
 	box-sizing: border-box;
 	flex-direction: row;
 	justify-content: flex-start;
-	padding: var(--padding-5xs) var(--padding-xs);
+	padding: var(--padding-xs);
 	font-family: var(--font-poppins);
 	font-size: var(--font-size-sm);
-	color: var(--color-slategray);
 	min-width: 183px;
 	font-weight: 600;
 }
@@ -928,11 +927,12 @@ body {
 	flex-direction: row;
 	align-items: center;
 	justify-content: flex-start;
-	padding: var(--padding-3xs-5) var(--padding-186xl) var(--padding-3xs-5) var(--padding-5xs);
+	padding: var(--padding-xs);
 	font-family: var(--font-poppins);
 	font-weight: 600;
 	font-size: var(--font-size-sm);
 	min-width: 183px;
+	font-weight: 600;
 }
 
 .field8 {
@@ -998,7 +998,7 @@ body {
 	flex-direction: row;
 	align-items: center;
 	justify-content: flex-start;
-	padding: var(--padding-3xs-5) var(--padding-186xl) var(--padding-3xs-5) var(--padding-5xs);
+	padding: var(--padding-xs);
 	font-family: var(--font-poppins);
 	font-weight: 600;
 	font-size: var(--font-size-sm);
@@ -1066,7 +1066,7 @@ body {
 	border-radius: var(--br-8xs);
 	box-sizing: border-box;
 	align-items: center;
-	padding: var(--padding-3xs-5) var(--padding-186xl) var(--padding-3xs-5) var(--padding-5xs);
+	padding: var(--padding-xs);
 	font-family: var(--font-poppins);
 	font-weight: 600;
 	font-size: var(--font-size-sm);

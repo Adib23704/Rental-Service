@@ -4,7 +4,10 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node app.js",
+    "dev": "nodemon app.js",
+    "format": "prettier --write \"src/*.js\" \"public/*.js\"",
+    "lint": "eslint \"src/*.js\" \"public/*.js\" --fix"
   },
   "repository": {
     "type": "git",
