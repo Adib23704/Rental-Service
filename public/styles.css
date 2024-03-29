@@ -148,7 +148,7 @@ body {
 	color: var(--color-black);
 }
 
-.text1 {
+.rsvpID {
 	position: relative;
 	letter-spacing: 0.02em;
 	font-weight: 300;
@@ -156,7 +156,7 @@ body {
 	min-width: 102px;
 }
 
-.text {
+.rsvpID-wrapper {
 	display: flex;
 	flex-direction: row;
 	align-items: center;
@@ -181,20 +181,20 @@ body {
 }
 
 .asterisk,
-.title {
+.rsvpID-container {
 	flex-direction: row;
 	align-items: flex-start;
 	justify-content: flex-start;
 }
 
-.field,
-.fileds,
-.title {
+.rsvp-field,
+.rsvp-input,
+.rsvpID-container {
 	align-self: stretch;
 	display: flex;
 }
 
-.fileds {
+.rsvp-input {
 	border: 1px solid var(--color-lavender-200);
 	outline: 0;
 	background-color: var(--color-white);
@@ -211,14 +211,14 @@ body {
 	min-width: 183px;
 }
 
-.field {
+.rsvp-field {
 	flex-direction: column;
 	align-items: flex-start;
 	justify-content: center;
 	gap: var(--gap-5xs);
 }
 
-.text3 {
+.pickupDate {
 	position: relative;
 	letter-spacing: 0.02em;
 	font-weight: 300;
@@ -226,14 +226,14 @@ body {
 	min-width: 85px;
 }
 
-.text2 {
+.pickupDate-wrapper {
 	display: flex;
 	flex-direction: row;
 	align-items: center;
 	justify-content: flex-start;
 }
 
-.div1 {
+.pickupDate-asterisk {
 	position: relative;
 	letter-spacing: 0.02em;
 	font-weight: 600;
@@ -241,24 +241,19 @@ body {
 	min-width: 8px;
 }
 
-.asterisk1,
-.title1 {
+.pickupDate-container {
 	display: flex;
 	flex-direction: row;
 	align-items: flex-start;
 	justify-content: flex-start;
 }
 
-.asterisk1 {
-	color: var(--color-red);
-}
-
-.title1 {
+.pickupDate-container {
 	align-self: stretch;
 	padding: 0 var(--padding-193xl) 0 0;
 }
 
-.fileds1 {
+.pickupDate-input {
 	outline: 0;
 	padding: var(--padding-10xs) var(--padding-xs);
 	font-family: var(--font-poppins);
@@ -270,14 +265,14 @@ body {
 	font-weight: 600;
 }
 
-.field1,
-.wrapper-fileds {
+.pickupDate-field,
+.pickupDate-input-container {
 	align-self: stretch;
 	display: flex;
 	align-items: flex-start;
 }
 
-.wrapper-fileds {
+.pickupDate-input-container {
 	position: relative;
 	border: 1px solid var(--color-lavender-200);
 	background-color: var(--color-white);
@@ -289,13 +284,13 @@ body {
 	min-width: 183px;
 }
 
-.field1 {
+.pickupDate-field {
 	flex-direction: column;
 	justify-content: center;
 	gap: var(--gap-5xs);
 }
 
-.text5 {
+.returnDate {
 	position: relative;
 	letter-spacing: 0.02em;
 	font-weight: 300;
@@ -303,14 +298,14 @@ body {
 	min-width: 85px;
 }
 
-.text4 {
+.returnDate-wrapper {
 	display: flex;
 	flex-direction: row;
 	align-items: center;
 	justify-content: flex-start;
 }
 
-.div2 {
+.returnDate-asterisk {
 	position: relative;
 	letter-spacing: 0.02em;
 	font-weight: 600;
@@ -318,24 +313,19 @@ body {
 	min-width: 8px;
 }
 
-.asterisk2,
-.title2 {
+.returnDate-container {
 	display: flex;
 	flex-direction: row;
 	align-items: flex-start;
 	justify-content: flex-start;
 }
 
-.asterisk2 {
-	color: var(--color-red);
-}
-
-.title2 {
+.returnDate-container {
 	align-self: stretch;
 	padding: 0 var(--padding-193xl) 0 0;
 }
 
-.fileds2 {
+.returnDate-input {
 	outline: 0;
 	padding: var(--padding-10xs) var(--padding-xs);
 	font-family: var(--font-poppins);
@@ -347,25 +337,14 @@ body {
 	font-weight: 600;
 }
 
-.calendar-icon1 {
-	height: 18px;
-	width: 18px;
-	position: absolute;
-	overflow: hidden;
-	flex-shrink: 0;
-	z-index: 2;
-	right: 12px;
-	top: 8px;
-}
-
-.field2,
-.wrapper-fileds1 {
+.returnDate-field,
+.returnDate-input-container {
 	align-self: stretch;
 	display: flex;
 	align-items: flex-start;
 }
 
-.wrapper-fileds1 {
+.returnDate-input-container {
 	position: relative;
 	border: 1px solid var(--color-lavender-200);
 	background-color: var(--color-white);
@@ -377,13 +356,13 @@ body {
 	min-width: 183px;
 }
 
-.field2 {
+.returnDate-field {
 	flex-direction: column;
 	justify-content: center;
 	gap: var(--gap-5xs);
 }
 
-.text7 {
+.duration {
 	position: relative;
 	letter-spacing: 0.02em;
 	font-weight: 300;
@@ -391,18 +370,18 @@ body {
 	min-width: 62px;
 }
 
-.div3,
-.text6 {
+.duration-asterisk,
+.duration-wrapper {
 	display: flex;
 	align-items: center;
 }
 
-.text6 {
+.duration-wrapper {
 	flex-direction: row;
 	justify-content: flex-start;
 }
 
-.div3 {
+.duration-asterisk {
 	align-self: stretch;
 	flex: 1;
 	position: relative;
@@ -410,34 +389,25 @@ body {
 	font-weight: 600;
 }
 
-.asterisk3,
-.fileds3,
-.title3 {
+.duration-input,
+.duration-container {
 	display: flex;
 	flex-direction: row;
 }
 
-.asterisk3 {
-	align-self: stretch;
-	width: 8px;
-	align-items: flex-start;
-	justify-content: flex-start;
-	color: var(--color-red);
-}
-
-.fileds3,
-.title3 {
+.duration-input,
+.duration-container {
 	box-sizing: border-box;
 }
 
-.title3 {
+.duration-container {
 	height: 21px;
 	align-items: flex-start;
 	justify-content: flex-start;
 	padding: 0 30px 0 0;
 }
 
-.fileds3 {
+.duration-input {
 	height: 37px;
 	flex: 1;
 	border-radius: var(--br-8xs);
@@ -453,13 +423,13 @@ body {
 }
 
 .field-parent,
-.field3 {
+.duration-field {
 	align-self: stretch;
 	display: flex;
 	justify-content: flex-start;
 }
 
-.field3 {
+.duration-field {
 	flex-direction: row;
 	align-items: center;
 	padding: 0;
@@ -472,7 +442,7 @@ body {
 	gap: var(--gap-xl);
 }
 
-.text9 {
+.discount {
 	position: relative;
 	letter-spacing: 0.02em;
 	font-weight: 300;
@@ -480,44 +450,27 @@ body {
 	min-width: 63px;
 }
 
-.div4,
-.text8 {
+.discount-wrapper {
 	display: flex;
 	align-items: center;
-}
-
-.text8 {
 	flex-direction: row;
 	justify-content: flex-start;
 }
 
-.div4 {
-	align-self: stretch;
-	position: relative;
-	letter-spacing: 0.02em;
-	font-weight: 600;
-}
-
-.asterisk4,
-.fileds4,
-.title4 {
+.discount-input,
+.discount-container {
 	align-self: stretch;
 	flex-direction: row;
 	align-items: flex-start;
 	justify-content: flex-start;
 }
 
-.asterisk4 {
-	display: none;
-	color: var(--color-red);
-}
-
-.fileds4,
-.title4 {
+.discount-input,
+.discount-container {
 	display: flex;
 }
 
-.fileds4 {
+.discount-input {
 	border: 1px solid var(--color-lavender-200);
 	outline: 0;
 	background-color: var(--color-white);
@@ -533,21 +486,21 @@ body {
 }
 
 .date,
-.field-wrapper,
-.field4 {
+.discount-section,
+.discount-field {
 	align-self: stretch;
 	display: flex;
 	flex-direction: column;
 	align-items: flex-start;
 }
 
-.field4 {
+.discount-field {
 	justify-content: center;
 	gap: var(--gap-5xs);
 }
 
 .date,
-.field-wrapper {
+.discount-section {
 	justify-content: flex-start;
 }
 
@@ -589,7 +542,7 @@ body {
 	gap: 21px;
 }
 
-.text11 {
+.vehType {
 	position: relative;
 	letter-spacing: 0.02em;
 	font-weight: 300;
@@ -597,14 +550,14 @@ body {
 	min-width: 91px;
 }
 
-.text10 {
+.vehType-wrapper {
 	display: flex;
 	flex-direction: row;
 	align-items: center;
 	justify-content: flex-start;
 }
 
-.div5 {
+.vehType-asterisk {
 	position: relative;
 	letter-spacing: 0.02em;
 	font-weight: 600;
@@ -612,30 +565,24 @@ body {
 	min-width: 8px;
 }
 
-.asterisk5,
-.fileds5,
-.title5 {
+.vehType-select,
+.vehType-container {
 	display: flex;
 	flex-direction: row;
 	justify-content: flex-start;
 }
 
-.asterisk5 {
-	align-items: flex-start;
-	color: var(--color-red);
-}
-
-.fileds5,
-.title5 {
+.vehType-select,
+.vehType-container {
 	align-self: stretch;
 }
 
-.title5 {
+.vehType-container {
 	align-items: flex-start;
 	padding: 0 206px 0 0;
 }
 
-.fileds5 {
+.vehType-select {
 	height: 45px;
 	border-radius: var(--br-8xs);
 	background-color: var(--color-white);
@@ -648,24 +595,24 @@ body {
 	font-weight: 600;
 }
 
-.field-container,
-.field5 {
+.vehType-field-container,
+.vehType-field {
 	align-self: stretch;
 	display: flex;
 	flex-direction: column;
 	align-items: flex-start;
 }
 
-.field5 {
+.vehType-field {
 	justify-content: center;
 	gap: var(--gap-5xs);
 }
 
-.field-container {
+.vehType-field-container {
 	justify-content: flex-start;
 }
 
-.text13 {
+.vehName {
 	position: relative;
 	letter-spacing: 0.02em;
 	font-weight: 300;
@@ -673,14 +620,14 @@ body {
 	min-width: 53px;
 }
 
-.text12 {
+.vehName-wrapper {
 	display: flex;
 	flex-direction: row;
 	align-items: center;
 	justify-content: flex-start;
 }
 
-.div6 {
+.vehName-asterisk {
 	position: relative;
 	letter-spacing: 0.02em;
 	font-weight: 600;
@@ -688,29 +635,24 @@ body {
 	min-width: 8px;
 }
 
-.asterisk6,
-.fileds6,
-.title6 {
+.vehName-input,
+.vehName-container {
 	display: flex;
 	flex-direction: row;
 	align-items: flex-start;
 	justify-content: flex-start;
 }
 
-.asterisk6 {
-	color: var(--color-red);
-}
-
-.fileds6,
-.title6 {
+.vehName-input,
+.vehName-container {
 	align-self: stretch;
 }
 
-.title6 {
+.vehName-container {
 	padding: 0 244px 0 0;
 }
 
-.fileds6 {
+.vehName-input {
 	height: 37px;
 	border-radius: var(--br-8xs);
 	background-color: var(--color-white);
@@ -722,7 +664,7 @@ body {
 	font-weight: 600;
 }
 
-.field6,
+.vehName-field,
 .frame-group,
 .vehicle-info {
 	display: flex;
@@ -730,7 +672,7 @@ body {
 	align-items: flex-start;
 }
 
-.field6 {
+.vehName-field {
 	align-self: stretch;
 	justify-content: center;
 	gap: var(--gap-5xs);
@@ -1110,90 +1052,6 @@ body {
 	max-width: 100%;
 }
 
-.charge {
-	position: relative;
-	letter-spacing: 0.02em;
-	font-weight: 600;
-	display: inline-block;
-	min-width: 55px;
-}
-
-.charge-types {
-	display: flex;
-	flex-direction: row;
-	align-items: flex-start;
-	justify-content: flex-start;
-	padding: var(--padding-5xs);
-}
-
-.unit {
-	width: 30px;
-	position: relative;
-	letter-spacing: 0.02em;
-	font-weight: 600;
-	display: inline-block;
-	min-width: 30px;
-}
-
-.unit-wrapper {
-	display: flex;
-	flex-direction: row;
-	align-items: center;
-	justify-content: center;
-	padding: var(--padding-5xs) var(--padding-sm);
-	text-align: center;
-}
-
-.rate {
-	position: relative;
-	letter-spacing: 0.02em;
-	font-weight: 600;
-	display: inline-block;
-	min-width: 34px;
-	white-space: nowrap;
-}
-
-.rate-wrapper {
-	display: flex;
-	flex-direction: row;
-	align-items: center;
-	justify-content: center;
-	padding: var(--padding-5xs) var(--padding-xs);
-}
-
-.total {
-	position: relative;
-	letter-spacing: 0.02em;
-	font-weight: 600;
-	display: inline-block;
-	min-width: 38px;
-}
-
-.additional-charges-sec {
-	display: flex;
-	flex-direction: row;
-	align-items: center;
-	justify-content: flex-end;
-	padding: var(--padding-5xs) var(--padding-6xs) var(--padding-5xs) 13px;
-}
-
-.charge-types-parent,
-.frame-parent1 {
-	display: flex;
-	flex-direction: row;
-	align-items: center;
-	justify-content: center;
-	gap: var(--gap-3xs);
-}
-
-.charge-types-parent {
-	align-self: stretch;
-	border-bottom: 1px solid var(--color-mediumslateblue-100);
-	justify-content: space-between;
-	padding: var(--padding-5xs) var(--padding-3xs) var(--padding-5xs) 0;
-	gap: var(--gap-xl);
-}
-
 .daily {
 	flex: 1;
 	position: relative;
@@ -1252,7 +1110,6 @@ body {
 }
 
 .frame,
-.frame-parent2,
 .frame-parent3 {
 	display: flex;
 	flex-direction: row;
@@ -1264,18 +1121,9 @@ body {
 	padding: var(--padding-5xs) var(--padding-5xs) var(--padding-5xs) var(--padding-9xs);
 }
 
-.frame-parent2,
 .frame-parent3 {
 	justify-content: center;
 	gap: var(--gap-3xs);
-}
-
-.frame-parent2 {
-	align-self: stretch;
-	border-bottom: 1px solid var(--color-lavender-100);
-	justify-content: space-between;
-	padding: var(--padding-5xs) 0;
-	gap: var(--gap-xl);
 }
 
 .weekly {
@@ -1438,7 +1286,6 @@ body {
 	justify-content: center;
 }
 
-.frame-div,
 .frame-parent6 {
 	align-self: stretch;
 	display: flex;
@@ -1453,31 +1300,12 @@ body {
 	gap: var(--gap-xl);
 }
 
-.frame-div {
-	border-radius: var(--br-8xs);
-	background-color: var(--color-lavender-100);
-	border: 1px solid var(--color-mediumslateblue-100);
-	flex-direction: column;
-	align-items: flex-start;
-	justify-content: flex-start;
-	padding: var(--padding-xl) var(--padding-4xs);
-}
-
 .customer-inf-charges-parent,
-.info-form-sec,
-.info-form-sec-inner {
+.info-form-sec {
 	display: flex;
 	align-items: flex-start;
 	justify-content: flex-start;
 	max-width: 100%;
-}
-
-.info-form-sec-inner {
-	flex: 1;
-	flex-direction: column;
-	padding: var(--padding-4xs) 0 0;
-	box-sizing: border-box;
-	min-width: 268px;
 }
 
 .customer-inf-charges-parent,
@@ -1829,19 +1657,19 @@ body {
 		font-size: 19px;
 	}
 
-	.title1,
-	.title2 {
+	.pickupDate-container,
+	.returnDate-container {
 		padding-right: var(--padding-xl);
 		box-sizing: border-box;
 	}
 
-	.field3 {
+	.duration-field {
 		flex-wrap: wrap;
 	}
 
 	.title10,
-	.title5,
-	.title6,
+	.vehType-container,
+	.vehName-container,
 	.title7,
 	.title8,
 	.title9 {
@@ -1849,14 +1677,7 @@ body {
 		box-sizing: border-box;
 	}
 
-	.charge-types-parent {
-		flex-wrap: wrap;
-		padding-left: var(--padding-3xs);
-		box-sizing: border-box;
-	}
-
 	.collision-damage-waiver-parent,
-	.frame-parent2,
 	.frame-parent4,
 	.frame-parent6,
 	.instance-container,
@@ -1867,5 +1688,91 @@ body {
 
 	.frame-parent8 {
 		height: auto;
+	}
+}
+
+.charges-summary table {
+	width: 100%;
+	border-collapse: collapse;
+	background-color: #fff;
+	border-radius: 4px;
+	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.charges-summary th,
+.charges-summary td {
+	padding: 12px 16px;
+	text-align: left;
+}
+
+.charges-summary th {
+	background-color: #f5f5f5;
+	font-weight: bold;
+	border-bottom: 1px solid #ddd;
+}
+
+.charges-summary td {
+	border-bottom: 1px solid #ddd;
+}
+
+.charges-summary .total-row {
+	background-color: #f5f5f5;
+	font-weight: bold;
+}
+
+@media (max-width: 600px) {
+
+	.charges-summary table,
+	.charges-summary thead,
+	.charges-summary tbody,
+	.charges-summary th,
+	.charges-summary td,
+	.charges-summary tr {
+		display: block;
+	}
+
+	.charges-summary thead tr {
+		position: absolute;
+		top: -9999px;
+		left: -9999px;
+	}
+
+	.charges-summary tr {
+		margin-bottom: 10px;
+		border: 1px solid #ddd;
+		border-radius: 4px;
+	}
+
+	.charges-summary td {
+		border: none;
+		border-bottom: 1px solid #ddd;
+		position: relative;
+		padding-left: 50%;
+	}
+
+	.charges-summary td:before {
+		position: absolute;
+		top: 12px;
+		left: 16px;
+		width: 45%;
+		padding-right: 10px;
+		white-space: nowrap;
+		font-weight: bold;
+	}
+
+	.charges-summary td:nth-of-type(1):before {
+		content: "Charge";
+	}
+
+	.charges-summary td:nth-of-type(2):before {
+		content: "Unit";
+	}
+
+	.charges-summary td:nth-of-type(3):before {
+		content: "Rate";
+	}
+
+	.charges-summary td:nth-of-type(4):before {
+		content: "Total";
 	}
 }

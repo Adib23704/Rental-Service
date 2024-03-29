@@ -28,66 +28,68 @@
 				</div>
 				<div class="date-parent">
 					<div class="date">
-						<div class="field">
-							<div class="title">
-								<div class="text">
-									<div class="text1">Reservation ID</div>
+						<div class="rsvp-field">
+							<div class="rsvpID-container">
+								<div class="rsvpID-wrapper">
+									<div class="rsvpID">Reservation ID</div>
 								</div>
 								<div class="asterisk">
 									<div class="div">*</div>
 								</div>
 							</div>
-							<input class="fileds" type="number" required />
+							<input class="rsvp-input" type="number" required />
 						</div>
 						<div class="field-parent">
-							<div class="field1">
-								<div class="title1">
-									<div class="text2">
-										<div class="text3">Pickup Date</div>
+							<div class="pickupDate-field">
+								<div class="pickupDate-container">
+									<div class="pickupDate-wrapper">
+										<div class="pickupDate">Pickup Date</div>
 									</div>
-									<div class="asterisk1">
-										<div class="div1">*</div>
-									</div>
-								</div>
-								<div class="wrapper-fileds">
-									<input class="fileds1" placeholder="Select Date and Time" type="date" required />
-								</div>
-							</div>
-							<div class="field2">
-								<div class="title2">
-									<div class="text4">
-										<div class="text5">Return Date</div>
-									</div>
-									<div class="asterisk2">
-										<div class="div2">*</div>
+									<div class="asterisk">
+										<div class="pickupDate-asterisk">*</div>
 									</div>
 								</div>
-								<div class="wrapper-fileds1">
-									<input class="fileds2" placeholder="Select Date and Time" type="date" required />
+								<div class="pickupDate-input-container">
+									<input class="pickupDate-input" placeholder="Select Date and Time" type="date"
+										required />
 								</div>
 							</div>
-							<div class="field3">
-								<div class="title3">
-									<div class="text6">
-										<div class="text7">Duration</div>
+							<div class="returnDate-field">
+								<div class="returnDate-container">
+									<div class="returnDate-wrapper">
+										<div class="returnDate">Return Date</div>
 									</div>
-									<div class="asterisk3">
-										<div class="div3">*</div>
+									<div class="asterisk">
+										<div class="returnDate-asterisk">*</div>
 									</div>
 								</div>
-								<select class="fileds3" required>
+								<div class="returnDate-input-container">
+									<input class="returnDate-input" placeholder="Select Date and Time" type="date"
+										required />
+								</div>
+							</div>
+							<div class="duration-field">
+								<div class="duration-container">
+									<div class="duration-wrapper">
+										<div class="duration">Duration</div>
+									</div>
+									<div class="asterisk">
+										<div class="duration-asterisk">*</div>
+									</div>
+								</div>
+								<select class="duration-input" required>
 									<option value="1day">1 day</option>
 								</select>
 							</div>
 						</div>
-						<div class="field-wrapper">
-							<div class="field4">
-								<div class="title4">
-									<div class="text8">
-										<div class="text9">Discount</div>
+						<div class="discount-section">
+							<div class="discount-field">
+								<div class="discount-container">
+									<div class="discount-wrapper">
+										<div class="discount">Discount</div>
 									</div>
 								</div>
-								<input class="fileds4" type="number" />
+								<input class="discount-input" type="number" />
 							</div>
 						</div>
 					</div>
@@ -96,17 +98,17 @@
 					</div>
 				</div>
 				<div class="vehicle-info">
-					<div class="field-container">
-						<div class="field5">
-							<div class="title5">
-								<div class="text10">
-									<div class="text11">Vehicle Type</div>
+					<div class="vehType-field-container">
+						<div class="vehType-field">
+							<div class="vehType-container">
+								<div class="vehType-wrapper">
+									<div class="vehType">Vehicle Type</div>
 								</div>
-								<div class="asterisk5">
-									<div class="div5">*</div>
+								<div class="asterisk">
+									<div class="vehType-asterisk">*</div>
 								</div>
 							</div>
-							<select class="fileds5" id="vehicleType" required>
+							<select class="vehType-select" id="vehicleType" required>
 								<option value="" disabled selected>Select Vehicle Type</option>
 								<% types.forEach(type=> { %>
 									<option value="<%= type.type %>">
@@ -116,16 +118,16 @@
 							</select>
 						</div>
 					</div>
-					<div class="field6">
-						<div class="title6">
-							<div class="text12">
-								<div class="text13">Vehicle</div>
+					<div class="vehName-field">
+						<div class="vehName-container">
+							<div class="vehName-wrapper">
+								<div class="vehName">Vehicle</div>
 							</div>
-							<div class="asterisk6">
-								<div class="div6">*</div>
+							<div class="asterisk">
+								<div class="vehName-asterisk">*</div>
 							</div>
 						</div>
-						<select class="fileds6" id="vehicleName" required disabled>
+						<select class="vehName-input" id="vehicleName" required disabled>
 						</select>
 					</div>
 				</div>
@@ -189,76 +191,43 @@
 								</div>
 							</div>
 						</div>
-						<div class="info-form-sec-inner">
-							<div class="frame-div">
-								<div class="charge-types-parent">
-									<div class="charge-types">
-										<div class="charge">Charge</div>
-									</div>
-									<div class="frame-parent1">
-										<div class="unit-wrapper">
-											<div class="unit">Unit</div>
-										</div>
-										<div class="rate-wrapper">
-											<div class="rate">Rate</div>
-										</div>
-										<div class="additional-charges-sec">
-											<div class="total">Total</div>
-										</div>
-									</div>
-								</div>
-								<div class="frame-parent2">
-									<div class="daily-wrapper">
-										<div class="daily">Daily</div>
-									</div>
-									<div class="frame-parent3">
-										<div class="wrapper">
-											<div class="div11">1</div>
-										</div>
-										<div class="container">
-											<div class="div12">$99.00</div>
-										</div>
-										<div class="frame">
-											<div class="div13">$99.00</div>
-										</div>
-									</div>
-								</div>
-								<div class="frame-parent4">
-									<div class="weekly-wrapper">
-										<div class="weekly">Weekly</div>
-									</div>
-									<div class="frame-parent5">
-										<div class="wrapper1">
-											<div class="div14">1</div>
-										</div>
-										<div class="wrapper2">
-											<div class="div15">$390.00</div>
-										</div>
-										<div class="wrapper3">
-											<div class="div16">$390.00</div>
-										</div>
-									</div>
-								</div>
-								<div class="collision-damage-waiver-parent">
-									<div class="collision-damage-waiver">
-										Collision Damage Waiver
-									</div>
-									<div class="parent">
-										<div class="div17">$9.00</div>
-										<div class="div18">$9.00</div>
-									</div>
-								</div>
-								<div class="frame-parent6">
-									<div class="total-wrapper">
-										<div class="total1">Total</div>
-									</div>
-									<div class="frame-wrapper">
-										<div class="wrapper4">
-											<div class="div19">$498.00</div>
-										</div>
-									</div>
-								</div>
-							</div>
+						<div class="charges-summary">
+							<table>
+								<thead>
+									<tr>
+										<th>Charge</th>
+										<th>Unit</th>
+										<th>Rate</th>
+										<th>Total</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td>Daily</td>
+										<td>1</td>
+										<td>$0.00</td>
+										<td>$0.00</td>
+									</tr>
+									<tr>
+										<td>Weekly</td>
+										<td>1</td>
+										<td>$0.00</td>
+										<td>$0.00</td>
+									</tr>
+									<tr>
+										<td>Collision Damage Waiver</td>
+										<td></td>
+										<td>$0.00</td>
+										<td>$0.00</td>
+									</tr>
+									<tr class="total-row">
+										<td>Total</td>
+										<td></td>
+										<td></td>
+										<td>$0.00</td>
+									</tr>
+								</tbody>
+							</table>
 						</div>
 					</div>
 				</div>
