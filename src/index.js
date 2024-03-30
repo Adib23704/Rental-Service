@@ -75,8 +75,9 @@ app.post('/calculate', async (req, res) => {
 	response.data.forEach((car) => {
 		if (car.id === vehicleID) {
 			const duration = calculateDuration(new Date(returnDate), new Date(pickupDate));
-			const durationInDays = Math.ceil((new Date(returnDate) - new Date(pickupDate))
+			let durationInDays = Math.ceil((new Date(returnDate) - new Date(pickupDate))
 				/ (1000 * 60 * 60 * 24));
+			if (durationInDays === 0) durationInDays = 1;
 
 			const dailyRate = car.rates.daily;
 			const dailyTotal = dailyRate * durationInDays;
@@ -89,12 +90,12 @@ app.post('/calculate', async (req, res) => {
 				+ ((insurance === true) ? (15) : (0)) + ((rentalTax === true) ? (rentalTaxAmount) : (0));
 
 			return res.status(200).json({
-				dailyRate: dailyRate.toFixed(2),
-				dailyTotal: dailyTotal.toFixed(2),
-				dailyUnit: durationInDays,
-				totalSummery: totalSummery.toFixed(2),
+				dailyRate: dailyRate.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ','),
+				dailyTotal: dailyTotal.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ','),
+				dailyUnit: durationInDays.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ','),
+				totalSummery: totalSummery.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ','),
 				duration,
-				rentalTaxAmount: rentalTaxAmount.toFixed(2),
+				rentalTaxAmount: rentalTaxAmount.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ','),
 			});
 		}
 		return true;

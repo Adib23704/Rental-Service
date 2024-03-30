@@ -21,11 +21,71 @@ const dailyUnit = document.getElementById('dailyUnit');
 const totalSummery = document.getElementById('totalSummery');
 const tableBody = document.getElementById('tableBody');
 
+const dtToday = new Date();
+
+let month = dtToday.getMonth() + 1;
+let day = dtToday.getDate();
+const year = dtToday.getFullYear();
+if (month < 10) month = `0${month.toString()}`;
+if (day < 10) day = `0${day.toString()}`;
+
+const maxDate = `${year}-${month}-${day}`;
+pickupDateID.setAttribute('min', maxDate);
+returnDateID.setAttribute('min', maxDate);
+
+const icon = {
+	success:
+		'<span class="material-symbols-outlined">task_alt</span>',
+	danger:
+		'<span class="material-symbols-outlined">error</span>',
+	warning:
+		'<span class="material-symbols-outlined">warning</span>',
+	info:
+		'<span class="material-symbols-outlined">info</span>',
+};
+
+const showToast = (message = 'Sample Message', toastType = 'info', duration = 5000) => {
+	if (!Object.keys(icon).includes(toastType)) toastType = 'info';
+
+	const box = document.createElement('div');
+	box.classList.add('toast', `toast-${toastType}`);
+	box.innerHTML = ` <div class="toast-content-wrapper"> 
+                      <div class="toast-icon"> 
+                      ${icon[toastType]} 
+                      </div> 
+                      <div class="toast-message">${message}</div> 
+                      <div class="toast-progress"></div> 
+                      </div>`;
+	duration = duration || 5000;
+	box.querySelector('.toast-progress').style.animationDuration = `${duration / 1000}s`;
+
+	const toastAlready = document.body.querySelector('.toast');
+	if (toastAlready) {
+		toastAlready.remove();
+	}
+
+	document.body.appendChild(box);
+};
+
 [
 	pickupDateID, returnDateID, discountID,
 	colDmgID, insuranceID, rentalTaxID, vehName,
 ].forEach((element) => {
 	element.addEventListener('change', async () => {
+		const pickupDate = new Date(pickupDateID.value);
+		const returnDate = new Date(returnDateID.value);
+		const today = new Date();
+
+		if (pickupDate <= today) {
+			showToast('Pickup date must be in the future', 'warning', 5000);
+			return;
+		}
+
+		if (returnDate < pickupDate) {
+			showToast('Return date must be after pickup date', 'warning', 5000);
+			return;
+		}
+
 		const options = {
 			pickupDate: pickupDateID.value,
 			returnDate: returnDateID.value,
@@ -147,40 +207,6 @@ vehType.addEventListener('change', (event) => {
 		})
 		.catch((error) => console.error('Error fetching vehicle models:', error));
 });
-
-const icon = {
-	success:
-		'<span class="material-symbols-outlined">task_alt</span>',
-	danger:
-		'<span class="material-symbols-outlined">error</span>',
-	warning:
-		'<span class="material-symbols-outlined">warning</span>',
-	info:
-		'<span class="material-symbols-outlined">info</span>',
-};
-
-const showToast = (message = 'Sample Message', toastType = 'info', duration = 5000) => {
-	if (!Object.keys(icon).includes(toastType)) toastType = 'info';
-
-	const box = document.createElement('div');
-	box.classList.add('toast', `toast-${toastType}`);
-	box.innerHTML = ` <div class="toast-content-wrapper"> 
-                      <div class="toast-icon"> 
-                      ${icon[toastType]} 
-                      </div> 
-                      <div class="toast-message">${message}</div> 
-                      <div class="toast-progress"></div> 
-                      </div>`;
-	duration = duration || 5000;
-	box.querySelector('.toast-progress').style.animationDuration = `${duration / 1000}s`;
-
-	const toastAlready = document.body.querySelector('.toast');
-	if (toastAlready) {
-		toastAlready.remove();
-	}
-
-	document.body.appendChild(box);
-};
 
 printButton.addEventListener('click', (e) => {
 	e.preventDefault();
