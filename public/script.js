@@ -21,43 +21,41 @@ const dailyUnit = document.getElementById('dailyUnit');
 const totalSummery = document.getElementById('totalSummery');
 const tableBody = document.getElementById('tableBody');
 
-if (discountID.value === undefined || discountID.value === '' || discountID.value === null || discountID.value < 0) discountID.value = 0;
+if (!discountID.value || discountID.value < 0) {
+	discountID.value = 0;
+}
 
 const dtToday = new Date();
-
-let month = dtToday.getMonth() + 1;
-let day = dtToday.getDate();
+const month = (dtToday.getMonth() + 1).toString().padStart(2, '0');
+const day = dtToday.getDate().toString().padStart(2, '0');
 const year = dtToday.getFullYear();
-if (month < 10) month = `0${month.toString()}`;
-if (day < 10) day = `0${day.toString()}`;
-
 const maxDate = `${year}-${month}-${day}`;
 pickupDateID.setAttribute('min', maxDate);
 returnDateID.setAttribute('min', maxDate);
 
 const icon = {
-	success:
-		'<span class="material-symbols-outlined">task_alt</span>',
-	danger:
-		'<span class="material-symbols-outlined">error</span>',
-	warning:
-		'<span class="material-symbols-outlined">warning</span>',
-	info:
-		'<span class="material-symbols-outlined">info</span>',
+	success: '<span class="material-symbols-outlined">task_alt</span>',
+	danger: '<span class="material-symbols-outlined">error</span>',
+	warning: '<span class="material-symbols-outlined">warning</span>',
+	info: '<span class="material-symbols-outlined">info</span>',
 };
 
 const showToast = (message = 'Sample Message', toastType = 'info', duration = 5000) => {
-	if (!Object.keys(icon).includes(toastType)) toastType = 'info';
+	if (!icon[toastType]) {
+		toastType = 'info';
+	}
 
 	const box = document.createElement('div');
 	box.classList.add('toast', `toast-${toastType}`);
-	box.innerHTML = ` <div class="toast-content-wrapper"> 
-                      <div class="toast-icon"> 
-                      ${icon[toastType]} 
-                      </div> 
-                      <div class="toast-message">${message}</div> 
-                      <div class="toast-progress"></div> 
-                      </div>`;
+	box.innerHTML = `
+		<div class="toast-content-wrapper">
+			<div class="toast-icon">
+				${icon[toastType]}
+			</div>
+			<div class="toast-message">${message}</div>
+			<div class="toast-progress"></div>
+		</div>
+	`;
 	duration = duration || 5000;
 	box.querySelector('.toast-progress').style.animationDuration = `${duration / 1000}s`;
 
@@ -70,8 +68,13 @@ const showToast = (message = 'Sample Message', toastType = 'info', duration = 50
 };
 
 [
-	pickupDateID, returnDateID, discountID,
-	colDmgID, insuranceID, rentalTaxID, vehName,
+	pickupDateID,
+	returnDateID,
+	discountID,
+	colDmgID,
+	insuranceID,
+	rentalTaxID,
+	vehName,
 ].forEach((element) => {
 	element.addEventListener('change', async () => {
 		const pickupDate = new Date(pickupDateID.value);
@@ -91,138 +94,93 @@ const showToast = (message = 'Sample Message', toastType = 'info', duration = 50
 		const options = {
 			pickupDate: pickupDateID.value,
 			returnDate: returnDateID.value,
-			discount: (discountID.value === undefined || discountID.value === '' || discountID.value === null || discountID.value < 0) ? 0 : discountID.value,
+			discount: discountID.value ?? 0,
 			colDmg: colDmgID.checked,
 			insurance: insuranceID.checked,
 			rentalTax: rentalTaxID.checked,
 			vehicleID: vehName.value,
 		};
-		const response = await fetch('/calculate', {
-			method: 'POST',
-			headers: {
-				'Content-Type': 'application/json',
-			},
-			body: JSON.stringify(options),
-		});
-		if (response.status === 200) {
-			const data = await response.json();
-			dailyRate.innerHTML = `$${data.dailyRate}`;
-			dailyTotal.innerHTML = `$${data.dailyTotal}`;
-			dailyUnit.innerHTML = `${data.dailyUnit}`;
-			totalSummery.innerHTML = `$${data.totalSummery}`;
-			durationID.value = `${data.duration}`;
 
-			if (insuranceID.checked && !document.getElementById('insuranceNode')) {
-				const newRow = document.createElement('tr');
-				const chargeCell = document.createElement('td');
-				const unitCell = document.createElement('td');
-				const rateCell = document.createElement('td');
-				const totalCell = document.createElement('td');
+		try {
+			const response = await fetch('/calculate', {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json',
+				},
+				body: JSON.stringify(options),
+			});
 
-				chargeCell.innerHTML = 'Liability Insurance';
-				unitCell.innerHTML = '';
-				rateCell.innerHTML = '';
-				totalCell.innerHTML = '$15.00';
+			if (response.ok) {
+				const data = await response.json();
+				dailyRate.innerHTML = `$${data.dailyRate}`;
+				dailyTotal.innerHTML = `$${data.dailyTotal}`;
+				dailyUnit.innerHTML = `${data.dailyUnit}`;
+				totalSummery.innerHTML = `$${data.totalSummery}`;
+				durationID.value = `${data.duration}`;
 
-				newRow.appendChild(chargeCell);
-				newRow.appendChild(unitCell);
-				newRow.appendChild(rateCell);
-				newRow.appendChild(totalCell);
+				const addRow = (id, charge, total) => {
+					if (!document.getElementById(id)) {
+						const newRow = document.createElement('tr');
+						newRow.setAttribute('id', id);
+						newRow.innerHTML = `
+							<td>${charge}</td>
+							<td></td>
+							<td></td>
+							<td>${total}</td>
+						`;
+						const dailyRow = document.getElementById('dailyRow');
+						tableBody.insertBefore(newRow, dailyRow.nextSibling);
+					}
+				};
 
-				const dailyRow = document.getElementById('dailyRow');
-				newRow.setAttribute('id', 'insuranceNode');
-				tableBody.insertBefore(newRow, dailyRow.nextSibling);
-			}
+				const removeRow = (id) => {
+					const row = document.getElementById(id);
+					if (row) {
+						row.remove();
+					}
+				};
 
-			if (!insuranceID.checked && document.getElementById('insuranceNode')) document.getElementById('insuranceNode').remove();
-
-			if (colDmgID.checked && !document.getElementById('colDmgNode')) {
-				const newRow = document.createElement('tr');
-				const chargeCell = document.createElement('td');
-				const unitCell = document.createElement('td');
-				const rateCell = document.createElement('td');
-				const totalCell = document.createElement('td');
-
-				chargeCell.innerHTML = 'Collision Damage Waiver';
-				unitCell.innerHTML = '';
-				rateCell.innerHTML = '';
-				totalCell.innerHTML = '$9.00';
-
-				newRow.appendChild(chargeCell);
-				newRow.appendChild(unitCell);
-				newRow.appendChild(rateCell);
-				newRow.appendChild(totalCell);
-
-				const dailyRow = document.getElementById('dailyRow');
-				newRow.setAttribute('id', 'colDmgNode');
-				tableBody.insertBefore(newRow, dailyRow.nextSibling);
-			}
-
-			if (!colDmgID.checked && document.getElementById('colDmgNode')) document.getElementById('colDmgNode').remove();
-
-			if (rentalTaxID.checked && !document.getElementById('rentalTaxNode')) {
-				const newRow = document.createElement('tr');
-				const chargeCell = document.createElement('td');
-				const unitCell = document.createElement('td');
-				const rateCell = document.createElement('td');
-				const totalCell = document.createElement('td');
-
-				chargeCell.innerHTML = 'Rental Tax (11.5%)';
-				unitCell.innerHTML = '';
-				rateCell.innerHTML = '';
-				totalCell.innerHTML = `$${data.rentalTaxAmount}`;
-
-				newRow.appendChild(chargeCell);
-				newRow.appendChild(unitCell);
-				newRow.appendChild(rateCell);
-				newRow.appendChild(totalCell);
-
-				const dailyRow = document.getElementById('dailyRow');
-				newRow.setAttribute('id', 'rentalTaxNode');
-				tableBody.insertBefore(newRow, dailyRow.nextSibling);
-			}
-
-			if (!rentalTaxID.checked && document.getElementById('rentalTaxNode')) document.getElementById('rentalTaxNode').remove();
-
-			if (discountID.value > 0) {
-				if (document.getElementById('discountedNode')) {
-					const discountedPrice = (parseInt(data.totalSummery.replace('$', ''), 10) * discountID.value) / 100;
-					document.getElementById('discountedNode').querySelector('td:last-child').innerHTML = `-$${discountedPrice.toFixed(2)}`;
+				if (insuranceID.checked) {
+					addRow('insuranceNode', 'Liability Insurance', '$15.00');
 				} else {
-					const newRow = document.createElement('tr');
-					const chargeCell = document.createElement('td');
-					const unitCell = document.createElement('td');
-					const rateCell = document.createElement('td');
-					const totalCell = document.createElement('td');
-
-					const discountedPrice = (parseInt(data.totalSummery.replace('$', ''), 10) * discountID.value) / 100;
-
-					chargeCell.innerHTML = 'Discount';
-					unitCell.innerHTML = '';
-					rateCell.innerHTML = '';
-					totalCell.innerHTML = `-$${discountedPrice.toFixed(2)}`;
-
-					newRow.appendChild(chargeCell);
-					newRow.appendChild(unitCell);
-					newRow.appendChild(rateCell);
-					newRow.appendChild(totalCell);
-
-					const dailyRow = document.getElementById('dailyRow');
-					newRow.setAttribute('id', 'discountedNode');
-					tableBody.insertBefore(newRow, dailyRow.nextSibling);
+					removeRow('insuranceNode');
 				}
-			} else if (document.getElementById('discountedNode')) {
-				document.getElementById('discountedNode').remove();
+
+				if (colDmgID.checked) {
+					addRow('colDmgNode', 'Collision Damage Waiver', '$9.00');
+				} else {
+					removeRow('colDmgNode');
+				}
+
+				if (rentalTaxID.checked) {
+					addRow('rentalTaxNode', 'Rental Tax (11.5%)', `$${data.rentalTaxAmount}`);
+				} else {
+					removeRow('rentalTaxNode');
+				}
+
+				if (discountID.value > 0) {
+					const discountedPrice = (parseInt(data.totalSummery.replace('$', ''), 10) * discountID.value) / 100;
+					if (document.getElementById('discountedNode')) {
+						document.getElementById('discountedNode').querySelector('td:last-child').innerHTML = `-$${discountedPrice.toFixed(2)}`;
+					} else {
+						addRow('discountedNode', 'Discount', `-$${discountedPrice.toFixed(2)}`);
+					}
+				} else {
+					removeRow('discountedNode');
+				}
 			}
+		} catch (error) {
+			console.error('An error occurred:', error);
 		}
 	});
 });
 
-vehType.addEventListener('change', (event) => {
+vehType.addEventListener('change', async (event) => {
 	vehName.setAttribute('disabled', 'disabled');
-	fetch(`/vehicleModels?type=${event.target.value}`)
-		.then((response) => response.json())
-		.then((data) => {
+	try {
+		const response = await fetch(`/vehicleModels?type=${event.target.value}`);
+		if (response.ok) {
+			const data = await response.json();
 			vehName.innerHTML = '';
 			const option = document.createElement('option');
 			option.value = '';
@@ -237,8 +195,12 @@ vehType.addEventListener('change', (event) => {
 				vehName.add(option);
 				vehName.removeAttribute('disabled');
 			});
-		})
-		.catch((error) => console.error('Error fetching vehicle models:', error));
+		} else {
+			console.error('Error fetching vehicle models:', response.status);
+		}
+	} catch (error) {
+		console.error('Error fetching vehicle models:', error);
+	}
 });
 
 printButton.addEventListener('click', async (e) => {
@@ -248,7 +210,7 @@ printButton.addEventListener('click', async (e) => {
 		rsvpID: rsvpID.value,
 		pickupDate: pickupDateID.value,
 		returnDate: returnDateID.value,
-		discount: (discountID.value === undefined || discountID.value === '' || discountID.value === null || discountID.value < 0) ? 0 : discountID.value,
+		discount: discountID.value ?? 0,
 		firstName: firstNameID.value,
 		lastName: lastNameID.value,
 		email: emailID.value,
@@ -264,6 +226,7 @@ printButton.addEventListener('click', async (e) => {
 		dailyTotal: dailyTotal.innerHTML,
 		rentalTaxAmount: document.getElementById('rentalTaxNode') ? document.getElementById('rentalTaxNode').querySelector('td:last-child').innerHTML : 0,
 	};
+
 	try {
 		const response = await fetch('/submit', {
 			method: 'POST',
@@ -272,7 +235,8 @@ printButton.addEventListener('click', async (e) => {
 			},
 			body: JSON.stringify(options),
 		});
-		if (response.status === 200) {
+
+		if (response.ok) {
 			const data = await response.json();
 			printButton.removeAttribute('disabled');
 			showToast('Invoice Generated Successfully', 'success', 5000);
