@@ -21,6 +21,8 @@ const dailyUnit = document.getElementById('dailyUnit');
 const totalSummery = document.getElementById('totalSummery');
 const tableBody = document.getElementById('tableBody');
 
+if (discountID.value === undefined || discountID.value === '' || discountID.value === null || discountID.value < 0) discountID.value = 0;
+
 const dtToday = new Date();
 
 let month = dtToday.getMonth() + 1;
@@ -89,7 +91,7 @@ const showToast = (message = 'Sample Message', toastType = 'info', duration = 50
 		const options = {
 			pickupDate: pickupDateID.value,
 			returnDate: returnDateID.value,
-			discount: discountID.value,
+			discount: (discountID.value === undefined || discountID.value === '' || discountID.value === null || discountID.value < 0) ? 0 : discountID.value,
 			colDmg: colDmgID.checked,
 			insurance: insuranceID.checked,
 			rentalTax: rentalTaxID.checked,
@@ -181,6 +183,37 @@ const showToast = (message = 'Sample Message', toastType = 'info', duration = 50
 			}
 
 			if (!rentalTaxID.checked && document.getElementById('rentalTaxNode')) document.getElementById('rentalTaxNode').remove();
+
+			if (discountID.value > 0) {
+				if (document.getElementById('discountedNode')) {
+					const discountedPrice = (parseInt(data.totalSummery.replace('$', ''), 10) * discountID.value) / 100;
+					document.getElementById('discountedNode').querySelector('td:last-child').innerHTML = `-$${discountedPrice.toFixed(2)}`;
+				} else {
+					const newRow = document.createElement('tr');
+					const chargeCell = document.createElement('td');
+					const unitCell = document.createElement('td');
+					const rateCell = document.createElement('td');
+					const totalCell = document.createElement('td');
+
+					const discountedPrice = (parseInt(data.totalSummery.replace('$', ''), 10) * discountID.value) / 100;
+
+					chargeCell.innerHTML = 'Discount';
+					unitCell.innerHTML = '';
+					rateCell.innerHTML = '';
+					totalCell.innerHTML = `-$${discountedPrice.toFixed(2)}`;
+
+					newRow.appendChild(chargeCell);
+					newRow.appendChild(unitCell);
+					newRow.appendChild(rateCell);
+					newRow.appendChild(totalCell);
+
+					const dailyRow = document.getElementById('dailyRow');
+					newRow.setAttribute('id', 'discountedNode');
+					tableBody.insertBefore(newRow, dailyRow.nextSibling);
+				}
+			} else if (document.getElementById('discountedNode')) {
+				document.getElementById('discountedNode').remove();
+			}
 		}
 	});
 });
@@ -215,7 +248,7 @@ printButton.addEventListener('click', async (e) => {
 		rsvpID: rsvpID.value,
 		pickupDate: pickupDateID.value,
 		returnDate: returnDateID.value,
-		discount: (discountID.value === undefined || discountID.value === '' || discountID.value === null) ? 0 : discountID.value,
+		discount: (discountID.value === undefined || discountID.value === '' || discountID.value === null || discountID.value < 0) ? 0 : discountID.value,
 		firstName: firstNameID.value,
 		lastName: lastNameID.value,
 		email: emailID.value,
@@ -225,8 +258,12 @@ printButton.addEventListener('click', async (e) => {
 		rentalTax: rentalTaxID.checked,
 		vehicleID: vehName.value,
 		vehicleType: vehType.value,
+		total: totalSummery.innerHTML,
+		dailyUnit: dailyUnit.innerHTML,
+		dailyRate: dailyRate.innerHTML,
+		dailyTotal: dailyTotal.innerHTML,
+		rentalTaxAmount: document.getElementById('rentalTaxNode') ? document.getElementById('rentalTaxNode').querySelector('td:last-child').innerHTML : 0,
 	};
-	console.log(options);
 	try {
 		const response = await fetch('/submit', {
 			method: 'POST',
@@ -238,8 +275,8 @@ printButton.addEventListener('click', async (e) => {
 		if (response.status === 200) {
 			const data = await response.json();
 			printButton.removeAttribute('disabled');
-			console.log(data);
 			showToast('Invoice Generated Successfully', 'success', 5000);
+			window.open(data.path, '_blank');
 		} else if (response.status === 400) {
 			const errorData = await response.json();
 			printButton.removeAttribute('disabled');

@@ -146,3 +146,5 @@ dist
 
 img/*.png
 package-lock.json
+
+public/invoice.pdf
