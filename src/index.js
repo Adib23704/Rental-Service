@@ -31,7 +31,9 @@ app.set('view engine', 'ejs');
 app.use(bodyParser.json());
 
 app.get('/', async (req, res) => {
-	const { data: response } = await axios.get('https://exam-server-7c41747804bf.herokuapp.com/carsList');
+	const { data: response } = await axios.get(
+		'https://exam-server-7c41747804bf.herokuapp.com/carsList',
+	);
 	const types = [];
 	response.data.forEach((car) => {
 		if (!types.some((type) => type.type === car.type)) {
@@ -50,7 +52,9 @@ app.get('/vehicleModels', async (req, res) => {
 		return res.status(400).send('Missing type parameter');
 	}
 
-	const { data: response } = await axios.get('https://exam-server-7c41747804bf.herokuapp.com/carsList');
+	const { data: response } = await axios.get(
+		'https://exam-server-7c41747804bf.herokuapp.com/carsList',
+	);
 	const types = [];
 	response.data.forEach((car) => {
 		if (car.type === type) {
@@ -65,20 +69,21 @@ app.get('/vehicleModels', async (req, res) => {
 });
 
 app.post('/calculate', async (req, res) => {
-	const {
-		vehicleID,
-		pickupDate,
-		returnDate,
-	} = req.body || {};
+	const { vehicleID, pickupDate, returnDate } = req.body || {};
 	let {
-		colDmg,
-		insurance,
-		rentalTax,
-		discount,
+		colDmg, insurance, rentalTax, discount,
 	} = req.body || {};
-	if ((vehicleID === undefined || vehicleID === '' || vehicleID === null)
-		|| (pickupDate === undefined || pickupDate === '' || pickupDate === null)
-		|| (returnDate === undefined || returnDate === '' || returnDate === null)) {
+	if (
+		vehicleID === undefined
+		|| vehicleID === ''
+		|| vehicleID === null
+		|| pickupDate === undefined
+		|| pickupDate === ''
+		|| pickupDate === null
+		|| returnDate === undefined
+		|| returnDate === ''
+		|| returnDate === null
+	) {
 		return res.status(404).send('Missing parameters');
 	}
 
@@ -87,31 +92,54 @@ app.post('/calculate', async (req, res) => {
 	if (rentalTax === undefined || rentalTax === '' || rentalTax === null) rentalTax = false;
 	if (discount === undefined || discount === '' || discount === null) discount = 0;
 
-	const { data: response } = await axios.get('https://exam-server-7c41747804bf.herokuapp.com/carsList');
+	const { data: response } = await axios.get(
+		'https://exam-server-7c41747804bf.herokuapp.com/carsList',
+	);
 	response.data.forEach((car) => {
 		if (car.id === vehicleID) {
-			const duration = calculateDuration(new Date(returnDate), new Date(pickupDate));
-			let durationInDays = Math.ceil((new Date(returnDate) - new Date(pickupDate))
-				/ (1000 * 60 * 60 * 24));
+			const duration = calculateDuration(
+				new Date(returnDate),
+				new Date(pickupDate),
+			);
+			let durationInDays = Math.ceil(
+				(new Date(returnDate) - new Date(pickupDate))
+				/ (1000 * 60 * 60 * 24),
+			);
 			if (durationInDays === 0) durationInDays = 1;
 
 			const dailyRate = car.rates.daily;
 			const dailyTotal = dailyRate * durationInDays;
 			const total = dailyTotal;
-			const totalWithDiscount = total - ((total * discount) / 100);
+			const totalWithDiscount = total - (total * discount) / 100;
 
 			const rentalTaxAmount = totalWithDiscount * 0.115;
 
-			const totalSummery = totalWithDiscount + ((colDmg === true) ? (9) : (0))
-				+ ((insurance === true) ? (15) : (0)) + ((rentalTax === true) ? (rentalTaxAmount) : (0));
+			const totalSummery = totalWithDiscount
+				+ (colDmg === true ? 9 : 0)
+				+ (insurance === true ? 15 : 0)
+				+ (rentalTax === true ? rentalTaxAmount : 0);
 
 			return res.status(200).json({
-				dailyRate: dailyRate.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ','),
-				dailyTotal: dailyTotal.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ','),
-				dailyUnit: durationInDays.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ','),
-				totalSummery: totalSummery.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ','),
+				dailyRate: dailyRate
+					.toFixed(2)
+					.toString()
+					.replace(/\B(?=(\d{3})+(?!\d))/g, ','),
+				dailyTotal: dailyTotal
+					.toFixed(2)
+					.toString()
+					.replace(/\B(?=(\d{3})+(?!\d))/g, ','),
+				dailyUnit: durationInDays
+					.toString()
+					.replace(/\B(?=(\d{3})+(?!\d))/g, ','),
+				totalSummery: totalSummery
+					.toFixed(2)
+					.toString()
+					.replace(/\B(?=(\d{3})+(?!\d))/g, ','),
 				duration,
-				rentalTaxAmount: rentalTaxAmount.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ','),
+				rentalTaxAmount: rentalTaxAmount
+					.toFixed(2)
+					.toString()
+					.replace(/\B(?=(\d{3})+(?!\d))/g, ','),
 			});
 		}
 		return true;
@@ -122,12 +150,18 @@ app.post('/calculate', async (req, res) => {
 app.post('/submit', async (req, res) => {
 	const missingFields = fields.filter((field) => {
 		const fieldValue = req.body[field.field];
-		return fieldValue === undefined || fieldValue === '' || fieldValue === null;
+		return (
+			fieldValue === undefined || fieldValue === '' || fieldValue === null
+		);
 	});
 
 	if (missingFields.length > 0) {
 		const missingFieldNames = missingFields.map((field) => field.name);
-		return res.status(400).json({ error: `${missingFields.length} Missing fields: ${missingFieldNames.join(', ')}` });
+		return res
+			.status(400)
+			.json({
+				error: `${missingFields.length} Missing fields: ${missingFieldNames.join(', ')}`,
+			});
 	}
 
 	const options = {
@@ -173,7 +207,9 @@ app.post('/submit', async (req, res) => {
 		});
 	}
 	if (req.body.discount > 0) {
-		const discountedAmount = (parseInt(req.body.total.replace('$', ''), 10) * req.body.discount) / 100;
+		const discountedAmount = (parseInt(req.body.total.replace('$', ''), 10)
+			* req.body.discount)
+			/ 100;
 		options.items.push({
 			name: 'Discount',
 			qty: 1,
@@ -183,11 +219,17 @@ app.post('/submit', async (req, res) => {
 	}
 	getInvoice(options)
 		.then(() => {
-			res.status(200).json({ success: true, path: `${req.protocol}://${req.get('host')}/invoice.pdf` });
+			res.status(200).json({
+				success: true,
+				path: `${req.protocol}://${req.get('host')}/invoice.pdf`,
+			});
 		})
 		.catch((err) => {
 			console.error(err);
-			res.status(500).json({ success: false, error: 'Something went wrong' });
+			res.status(500).json({
+				success: false,
+				error: 'Something went wrong',
+			});
 		});
 	return true;
 });

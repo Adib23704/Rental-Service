@@ -6,8 +6,8 @@
   "scripts": {
     "start": "node app.js",
     "dev": "nodemon app.js",
-    "format": "prettier --write \"src/*.js\" \"public/*.js\"",
-    "lint": "eslint \"src/*.js\" \"public/*.js\" --fix"
+    "format": "prettier --write \"src/*.js\" \"src/*.cjs\" \"public/*.js\"",
+    "lint": "eslint \"src/*.js\" \"src/*.cjs\" \"public/*.js\" --fix"
   },
   "repository": {
     "type": "git",

@@ -40,7 +40,11 @@ const icon = {
 	info: '<span class="material-symbols-outlined">info</span>',
 };
 
-const showToast = (message = 'Sample Message', toastType = 'info', duration = 5000) => {
+const showToast = (
+	message = 'Sample Message',
+	toastType = 'info',
+	duration = 5000,
+) => {
 	if (!icon[toastType]) {
 		toastType = 'info';
 	}
@@ -153,17 +157,29 @@ const showToast = (message = 'Sample Message', toastType = 'info', duration = 50
 				}
 
 				if (rentalTaxID.checked) {
-					addRow('rentalTaxNode', 'Rental Tax (11.5%)', `$${data.rentalTaxAmount}`);
+					addRow(
+						'rentalTaxNode',
+						'Rental Tax (11.5%)',
+						`$${data.rentalTaxAmount}`,
+					);
 				} else {
 					removeRow('rentalTaxNode');
 				}
 
 				if (discountID.value > 0) {
-					const discountedPrice = (parseInt(data.totalSummery.replace('$', ''), 10) * discountID.value) / 100;
+					const discountedPrice = (parseInt(data.totalSummery.replace('$', ''), 10)
+						* discountID.value)
+						/ 100;
 					if (document.getElementById('discountedNode')) {
-						document.getElementById('discountedNode').querySelector('td:last-child').innerHTML = `-$${discountedPrice.toFixed(2)}`;
+						document
+							.getElementById('discountedNode')
+							.querySelector('td:last-child').innerHTML = `-$${discountedPrice.toFixed(2)}`;
 					} else {
-						addRow('discountedNode', 'Discount', `-$${discountedPrice.toFixed(2)}`);
+						addRow(
+							'discountedNode',
+							'Discount',
+							`-$${discountedPrice.toFixed(2)}`,
+						);
 					}
 				} else {
 					removeRow('discountedNode');
@@ -178,7 +194,9 @@ const showToast = (message = 'Sample Message', toastType = 'info', duration = 50
 vehType.addEventListener('change', async (event) => {
 	vehName.setAttribute('disabled', 'disabled');
 	try {
-		const response = await fetch(`/vehicleModels?type=${event.target.value}`);
+		const response = await fetch(
+			`/vehicleModels?type=${event.target.value}`,
+		);
 		if (response.ok) {
 			const data = await response.json();
 			vehName.innerHTML = '';
@@ -224,7 +242,11 @@ printButton.addEventListener('click', async (e) => {
 		dailyUnit: dailyUnit.innerHTML,
 		dailyRate: dailyRate.innerHTML,
 		dailyTotal: dailyTotal.innerHTML,
-		rentalTaxAmount: document.getElementById('rentalTaxNode') ? document.getElementById('rentalTaxNode').querySelector('td:last-child').innerHTML : 0,
+		rentalTaxAmount: document.getElementById('rentalTaxNode')
+			? document
+				.getElementById('rentalTaxNode')
+				.querySelector('td:last-child').innerHTML
+			: 0,
 	};
 
 	try {
