@@ -144,7 +144,4 @@ dist
 
 # End of https://www.toptal.com/developers/gitignore/api/node
 
-img/*.png
-package-lock.json
-
 public/invoice.pdf
