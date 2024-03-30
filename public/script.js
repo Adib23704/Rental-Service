@@ -14,12 +14,129 @@ const colDmgID = document.getElementById('colDmgID');
 const insuranceID = document.getElementById('insuranceID');
 const rentalTaxID = document.getElementById('rentalTaxID');
 
+const dailyRate = document.getElementById('dailyRate');
+const dailyTotal = document.getElementById('dailyTotal');
+const dailyUnit = document.getElementById('dailyUnit');
+
+const totalSummery = document.getElementById('totalSummery');
+const tableBody = document.getElementById('tableBody');
+
+[
+	pickupDateID, returnDateID, discountID,
+	colDmgID, insuranceID, rentalTaxID, vehName,
+].forEach((element) => {
+	element.addEventListener('change', async () => {
+		const options = {
+			pickupDate: pickupDateID.value,
+			returnDate: returnDateID.value,
+			discount: discountID.value,
+			colDmg: colDmgID.checked,
+			insurance: insuranceID.checked,
+			rentalTax: rentalTaxID.checked,
+			vehicleID: vehName.value,
+		};
+		const response = await fetch('/calculate', {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json',
+			},
+			body: JSON.stringify(options),
+		});
+		if (response.status === 200) {
+			const data = await response.json();
+			dailyRate.innerHTML = `$${data.dailyRate}`;
+			dailyTotal.innerHTML = `$${data.dailyTotal}`;
+			dailyUnit.innerHTML = `${data.dailyUnit}`;
+			totalSummery.innerHTML = `$${data.totalSummery}`;
+			durationID.value = `${data.duration}`;
+
+			if (insuranceID.checked && !document.getElementById('insuranceNode')) {
+				const newRow = document.createElement('tr');
+				const chargeCell = document.createElement('td');
+				const unitCell = document.createElement('td');
+				const rateCell = document.createElement('td');
+				const totalCell = document.createElement('td');
+
+				chargeCell.innerHTML = 'Liability Insurance';
+				unitCell.innerHTML = '';
+				rateCell.innerHTML = '';
+				totalCell.innerHTML = '$15.00';
+
+				newRow.appendChild(chargeCell);
+				newRow.appendChild(unitCell);
+				newRow.appendChild(rateCell);
+				newRow.appendChild(totalCell);
+
+				const dailyRow = document.getElementById('dailyRow');
+				newRow.setAttribute('id', 'insuranceNode');
+				tableBody.insertBefore(newRow, dailyRow.nextSibling);
+			}
+
+			if (!insuranceID.checked && document.getElementById('insuranceNode')) document.getElementById('insuranceNode').remove();
+
+			if (colDmgID.checked && !document.getElementById('colDmgNode')) {
+				const newRow = document.createElement('tr');
+				const chargeCell = document.createElement('td');
+				const unitCell = document.createElement('td');
+				const rateCell = document.createElement('td');
+				const totalCell = document.createElement('td');
+
+				chargeCell.innerHTML = 'Collision Damage Waiver';
+				unitCell.innerHTML = '';
+				rateCell.innerHTML = '';
+				totalCell.innerHTML = '$9.00';
+
+				newRow.appendChild(chargeCell);
+				newRow.appendChild(unitCell);
+				newRow.appendChild(rateCell);
+				newRow.appendChild(totalCell);
+
+				const dailyRow = document.getElementById('dailyRow');
+				newRow.setAttribute('id', 'colDmgNode');
+				tableBody.insertBefore(newRow, dailyRow.nextSibling);
+			}
+
+			if (!colDmgID.checked && document.getElementById('colDmgNode')) document.getElementById('colDmgNode').remove();
+
+			if (rentalTaxID.checked && !document.getElementById('rentalTaxNode')) {
+				const newRow = document.createElement('tr');
+				const chargeCell = document.createElement('td');
+				const unitCell = document.createElement('td');
+				const rateCell = document.createElement('td');
+				const totalCell = document.createElement('td');
+
+				chargeCell.innerHTML = 'Rental Tax (11.5%)';
+				unitCell.innerHTML = '';
+				rateCell.innerHTML = '';
+				totalCell.innerHTML = `$${data.rentalTaxAmount}`;
+
+				newRow.appendChild(chargeCell);
+				newRow.appendChild(unitCell);
+				newRow.appendChild(rateCell);
+				newRow.appendChild(totalCell);
+
+				const dailyRow = document.getElementById('dailyRow');
+				newRow.setAttribute('id', 'rentalTaxNode');
+				tableBody.insertBefore(newRow, dailyRow.nextSibling);
+			}
+
+			if (!rentalTaxID.checked && document.getElementById('rentalTaxNode')) document.getElementById('rentalTaxNode').remove();
+		}
+	});
+});
+
 vehType.addEventListener('change', (event) => {
 	vehName.setAttribute('disabled', 'disabled');
 	fetch(`/vehicleModels?type=${event.target.value}`)
 		.then((response) => response.json())
 		.then((data) => {
 			vehName.innerHTML = '';
+			const option = document.createElement('option');
+			option.value = '';
+			option.text = 'Select Vehicle';
+			option.disabled = true;
+			option.selected = true;
+			vehName.add(option);
 			data.forEach((model) => {
 				const option = document.createElement('option');
 				option.value = model.id;
