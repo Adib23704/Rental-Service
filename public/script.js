@@ -208,38 +208,48 @@ vehType.addEventListener('change', (event) => {
 		.catch((error) => console.error('Error fetching vehicle models:', error));
 });
 
-printButton.addEventListener('click', (e) => {
+printButton.addEventListener('click', async (e) => {
 	e.preventDefault();
 	printButton.setAttribute('disabled', 'disabled');
 	const options = {
 		rsvpID: rsvpID.value,
-		vehicleID: vehName.value,
 		pickupDate: pickupDateID.value,
 		returnDate: returnDateID.value,
-		discount: discountID.value,
+		discount: (discountID.value === undefined || discountID.value === '' || discountID.value === null) ? 0 : discountID.value,
 		firstName: firstNameID.value,
 		lastName: lastNameID.value,
 		email: emailID.value,
 		phone: phoneID.value,
-		colDmg: colDmgID.value,
-		insurance: insuranceID.value,
-		rentalTax: rentalTaxID.value,
+		colDmg: colDmgID.checked,
+		insurance: insuranceID.checked,
+		rentalTax: rentalTaxID.checked,
+		vehicleID: vehName.value,
+		vehicleType: vehType.value,
 	};
-	fetch('/submit', {
-		method: 'POST',
-		headers: {
-			'Content-Type': 'application/json',
-		},
-		body: JSON.stringify(options),
-	})
-		.then((response) => response.json())
-		.then((data) => {
+	console.log(options);
+	try {
+		const response = await fetch('/submit', {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json',
+			},
+			body: JSON.stringify(options),
+		});
+		if (response.status === 200) {
+			const data = await response.json();
 			printButton.removeAttribute('disabled');
 			console.log(data);
-			showToast('Article Submitted Successfully', 'success', 5000);
-		}).catch((error) => {
+			showToast('Invoice Generated Successfully', 'success', 5000);
+		} else if (response.status === 400) {
+			const errorData = await response.json();
 			printButton.removeAttribute('disabled');
-			console.error('Error submitting article:', error);
-			showToast('Error submitting article', 'danger', 5000);
-		});
+			showToast(errorData.error, 'danger', 5000);
+		} else {
+			printButton.removeAttribute('disabled');
+			showToast('An error occurred', 'danger', 5000);
+		}
+	} catch (error) {
+		printButton.removeAttribute('disabled');
+		showToast(error.error, 'danger', 5000);
+	}
 });

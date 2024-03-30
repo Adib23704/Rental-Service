@@ -8,6 +8,21 @@ dotenvFlow.config();
 
 const app = express();
 const port = process.env.PORT;
+const fields = [
+	{ field: 'rsvpID', name: 'RSVP ID' },
+	{ field: 'pickupDate', name: 'Pickup Date' },
+	{ field: 'returnDate', name: 'Return Date' },
+	{ field: 'discount', name: 'Discount' },
+	{ field: 'firstName', name: 'First Name' },
+	{ field: 'lastName', name: 'Last Name' },
+	{ field: 'email', name: 'Email' },
+	{ field: 'phone', name: 'Phone' },
+	{ field: 'colDmg', name: 'Collision Damage Waiver' },
+	{ field: 'insurance', name: 'Insurance' },
+	{ field: 'rentalTax', name: 'Rental Tax' },
+	{ field: 'vehicleID', name: 'Vehicle Name' },
+	{ field: 'vehicleType', name: 'Vehicle Type' },
+];
 
 app.use(express.static('./public'));
 app.set('views', './views');
@@ -101,6 +116,20 @@ app.post('/calculate', async (req, res) => {
 		return true;
 	});
 	return true;
+});
+
+app.post('/submit', async (req, res) => {
+	const missingFields = fields.filter((field) => {
+		const fieldValue = req.body[field.field];
+		return fieldValue === undefined || fieldValue === '' || fieldValue === null;
+	});
+
+	if (missingFields.length > 0) {
+		const missingFieldNames = missingFields.map((field) => field.name);
+		return res.status(400).json({ error: `${missingFields.length} Missing fields: ${missingFieldNames.join(', ')}` });
+	}
+
+	return res.status(200).json({ message: 'Success' });
 });
 
 async function main() {
