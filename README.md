@@ -1,3 +1,4 @@
+
 ## Installation
 
 1. Clone the repository:
@@ -19,3 +20,15 @@
    ```
 
 5. Open your web browser and navigate to http://localhost:8080 to access the application.
+
+## Preview
+<details>
+   <summary>Dashboard</summary>
+   
+   ![dashboard](https://raw.githubusercontent.com/Adib23704/Rental-Service-Dashboard/master/dashboard.png)
+</details>
+<details>
+   <summary>Invoice</summary>
+
+   ![invoice](https://raw.githubusercontent.com/Adib23704/Rental-Service-Dashboard/master/invoice.jpg)
+</details>
